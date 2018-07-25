@@ -1,55 +1,53 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-        <link rel="stylesheet" type="text/css" href="assets/style.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+                crossorigin="anonymous">
+        <!-- <link rel="stylesheet" type="text/css" href="assets/style.css"> -->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-    
+
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.5.1/chosen.css">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.5.1/chosen.jquery.min.js"></script>
 </head>
+
 <body>
 
         <form>
                 <div class="form-group">
-                  <label for="exampleInputEmail1">Name</label>
-                  <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter Name">
-                  <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+                        <label for="exampleInputEmail1">Name</label>
+                        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter Name">
+                        <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
                 </div>
                 <div class="form-group">
-                  <label for="photoUrl">Link to Photo Image</label>
-                  <input type="url" class="form-control" id="urlLink" placeholder="Enter Link to Photo">
+                        <label for="photoUrl">Link to Photo Image</label>
+                        <input type="url" class="form-control" id="urlLink" placeholder="Enter Link to Photo">
                 </div>
-                <div>
-                        <h4>JavaScript is ______ Language.</h4><br>
-                        <form >
-                        <input type="radio" name="choice" value="1"> 1
-                        <input type="radio" name="choice" value="2"> 2
-                        <input type="radio" name="choice" value="3"> 3
-                        <input type="radio" name="choice" value="4"> 4
-                        <input type="radio" name="choice" value="5"> 5
 
-                        </form>
-                </div>
-                <div>
-                        <h4>JavaScript is ______ Language.</h4><br>
-                        <form >
-                        <input type="radio" name="choice" value="1"> 1
-                        <input type="radio" name="choice" value="2"> 2
-                        <input type="radio" name="choice" value="3"> 3
-                        <input type="radio" name="choice" value="4"> 4
-                        <input type="radio" name="choice" value="5"> 5
+                <h4>Your mind is always buzzing with unexplored ideas and plans.</h4>
+                <select class="chosen" style="width:200px;">
+                                <option selected="selected">Choose...</option>
+                                <option value ="1">1 (Strongly Disagree)</option>
+                                <option value ="2">2</option>
+                                <option value ="3">3</option>
+                                <option value ="4">4</option>
+                                <option value ="5">5 (Strongly Agree)</option>
 
-                        </form>
-                </div>
-            
-                <button type="submit" class="btn btn-primary">Submit</button>
-              </form>
+                        </select>
+
+
+
+        <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
 
 
 
 
-<script type="text/javascript" src="jfunctions.js"></script>
+        <script type="text/javascript" src="chosen.js"></script>
+
+     
 
 </body>
 
