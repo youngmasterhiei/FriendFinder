@@ -16,18 +16,18 @@
 <body>
 
         <form>
-                <div class="form-group">
+                <div class="form-group ">
                         <label for="exampleInputEmail1">Name</label>
-                        <input type="text" class="form-control" id="userName" aria-describedby="emailHelp" placeholder="Enter Name">
+                        <input type="text" class="form-control valid" id="userName" aria-describedby="emailHelp" placeholder="Enter Name">
                         <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
                 </div>
-                <div class="form-group">
+                <div class="form-group ">
                         <label for="photoUrl">Link to Photo Image</label>
-                        <input type="url" class="form-control" id="userLink" placeholder="Enter Link to Photo">
+                        <input type="url" class="form-control valid" id="userLink" placeholder="Enter Link to Photo">
                 </div>
 
                 <h4>Your mind is always buzzing with unexplored ideas and plans.</h4>
-                <select class="chosen" id = "q1"style="width:200px;">
+                <select class="chosen valid" id = "q1"style="width:200px;">
                         <option selected="selected">Choose...</option>
                         <option value="1">1 (Strongly Disagree)</option>
                         <option value="2">2</option>
@@ -38,7 +38,7 @@
                 </select>
 
                 <h4>Your mind is always buzzing with unexplored ideas and plans.</h4>
-                <select class="chosen" id = "q2" style="width:200px;">
+                <select class="chosen valid" id = "q2" style="width:200px;">
                         <option selected="selected">Choose...</option>
                         <option value="1">1 (Strongly Disagree)</option>
                         <option value="2">2</option>
@@ -48,7 +48,7 @@
 
                 </select>
                 <h4>Your mind is always buzzing with unexplored ideas and plans.</h4>
-                <select class="chosen" id = "q3"style="width:200px;">
+                <select class="chosen valid" id = "q3"style="width:200px;">
                         <option selected="selected">Choose...</option>
                         <option value="1">1 (Strongly Disagree)</option>
                         <option value="2">2</option>
@@ -170,72 +170,87 @@
 
     $(".chosen-select").chosen();
 
+var difference=[];
 
 
         $(".submit").on("click", function(event) {
           event.preventDefault();
     
+      
+          
+          
+
 
 
 
 
 
           var newFriend = {
-            name: $("#userName").val().trim(),
-            photo: $("#userLink").val().trim(),
-            scores: [
-            $("#q1").val(),
-            $("#q2").val(),
-            $("#q3").val(),
-        //     $("#q4").val(),
-        //     $("#q5").val(),
-        //     $("#q6").val(),
-        //     $("#q7").val(),
-        //     $("#q8").val(),
-        //     $("#q9").val(),
-        //     $("#q10").val(),
+                        name: $("#userName").val().trim(),
+                        photo: $("#userLink").val().trim(),
+                        scores: [
+                                $("#q1").val(),
+                                $("#q2").val(),
+                                $("#q3").val(),
+                                //     $("#q4").val(),
+                                //     $("#q5").val(),
+                                //     $("#q6").val(),
+                                //     $("#q7").val(),
+                                //     $("#q8").val(),
+                                //     $("#q9").val(),
+                                //     $("#q10").val(),
 
-            ]
-          };
-    
-          console.log(newFriend);
-          for (i=0; i<newFriend.scores.length; i++){
+                        ]
+                };
 
-                var toNumber = parseInt(newFriend.scores[i]);
-                 totalScore += toNumber;
-          };
-          console.log(totalScore);
-          newFriend.totalScore = totalScore;
-          // This line is the magic. It"s very similar to the standard ajax function we used.
-          // Essentially we give it a URL, we give it the object we want to send, then we have a "callback".
-          // The callback is the response of the server. In our case, we set up code in api-routes that "returns" true or false
-          // depending on if a tables is available or not.
-    
-          $.post("/api/friends", newFriend,
-            function(data) {
-    
-              // If a table is available... tell user they are booked.
-              if (data) {
-                alert("Yay! You are have a new friend!");
-              }
-    
-              // If a table is available... tell user they on the waiting list.
-              else {
-                alert("Sorry you are on the friend wait list");
-              }
+                console.log(newFriend);
+                for (i = 0; i < newFriend.scores.length; i++) {
 
-    
-            });
-  
-            $.get("/api/friends", function(req, res){
-                    for (var i =0; i<req.length; i++){
-                            
-                        console.log(req[i].scores);
+                        var toNumber = parseInt(newFriend.scores[i]);
+                        totalScore += toNumber;
+                };
+                console.log(totalScore);
+                newFriend.totalScore = totalScore;
+                // This line is the magic. It"s very similar to the standard ajax function we used.
+                // Essentially we give it a URL, we give it the object we want to send, then we have a "callback".
+                // The callback is the response of the server. In our case, we set up code in api-routes that "returns" true or false
+                // depending on if a tables is available or not.
 
-                    }
-            });
-    
-        });
+                $.post("/api/friends", newFriend, function (data) {
 
-    
+                                // If a table is available... tell user they are booked.
+                                if (data) {
+                                        alert("Yay! You are have a new friend!");
+                                }
+
+                                // If a table is available... tell user they on the waiting list.
+                                else {
+                                        alert("Sorry you are on the friend wait list");
+                                }
+
+
+                        });
+
+
+
+
+         
+
+
+                $.get("/api/friends", function (req, res) {
+                        console.log(req);
+                        for (i=0; i<req.length; i++){
+                                console.log(req[i].totalScore);
+                                if (req[i].totalScore === newFriend.totalScore){
+
+                                }
+                                else if (req[i].totalScore)
+                        }
+            
+
+
+                });
+    });
+
+
     </script>
