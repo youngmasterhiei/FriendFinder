@@ -21,13 +21,13 @@
                         <input type="text" class="form-control valid" id="userName" aria-describedby="emailHelp" placeholder="Enter Name">
                         <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
                 </div>
-                <div class="form-group ">
+                <!-- <div class="form-group ">
                         <label for="photoUrl">Link to Photo Image</label>
                         <input type="url" class="form-control valid" id="userLink" placeholder="Enter Link to Photo">
-                </div>
+                </div> -->
 
                 <h4>Your mind is always buzzing with unexplored ideas and plans.</h4>
-                <select class="chosen valid" id = "q1"style="width:200px;">
+                <select class="chosen valid" id="q1" style="width:200px;">
                         <option selected="selected">Choose...</option>
                         <option value="1">1 (Strongly Disagree)</option>
                         <option value="2">2</option>
@@ -38,7 +38,7 @@
                 </select>
 
                 <h4>Your mind is always buzzing with unexplored ideas and plans.</h4>
-                <select class="chosen valid" id = "q2" style="width:200px;">
+                <select class="chosen valid" id="q2" style="width:200px;">
                         <option selected="selected">Choose...</option>
                         <option value="1">1 (Strongly Disagree)</option>
                         <option value="2">2</option>
@@ -48,7 +48,7 @@
 
                 </select>
                 <h4>Your mind is always buzzing with unexplored ideas and plans.</h4>
-                <select class="chosen valid" id = "q3"style="width:200px;">
+                <select class="chosen valid" id="q3" style="width:200px;">
                         <option selected="selected">Choose...</option>
                         <option value="1">1 (Strongly Disagree)</option>
                         <option value="2">2</option>
@@ -152,42 +152,30 @@
 
 <script type="text/javascript">
 
-        // In this code below we create the Front-end JavaScript which "POSTS" our form data to our express server.
-        // In essence, when the user hits submit, jQuery grabs all of the fields then sends a post request to our api
-        // Our api recognizes the route (/api/tables)... and then runs the associated code (found in api-routes.js).
-        // In this case the associated code "saves" the data to the table-data.js file or waitinglist-data.js file
-    var totalScore = 0;
 
-// function addScores(id){
-//         for (var i=0; i<10; i++){
-//                         $(id + [i]).val() = answer;
-//                         answer.push(scoreArray);
-//                 };
-
-// };
-
-// var friends = require("../data/friends.js");
-
-    $(".chosen-select").chosen();
-
-var difference=[];
+        var totalScore = 0;
 
 
-        $(".submit").on("click", function(event) {
-          event.preventDefault();
-    
-      
-          
-          
+
+        $(".chosen-select").chosen();
+
+
+
+        $(".submit").on("click", function (event) {
+                event.preventDefault();
 
 
 
 
 
 
-          var newFriend = {
+
+
+
+
+                var newFriend = {
                         name: $("#userName").val().trim(),
-                        photo: $("#userLink").val().trim(),
+                        // photo: $("#userLink").val().trim(),
                         scores: [
                                 $("#q1").val(),
                                 $("#q2").val(),
@@ -203,54 +191,65 @@ var difference=[];
                         ]
                 };
 
-                console.log(newFriend);
-                for (i = 0; i < newFriend.scores.length; i++) {
-
-                        var toNumber = parseInt(newFriend.scores[i]);
-                        totalScore += toNumber;
+                var match = {
+                        name: "",
+                        photo: "",
+                        scoreDifference: Infinity
                 };
-                console.log(totalScore);
-                newFriend.totalScore = totalScore;
-                // This line is the magic. It"s very similar to the standard ajax function we used.
-                // Essentially we give it a URL, we give it the object we want to send, then we have a "callback".
-                // The callback is the response of the server. In our case, we set up code in api-routes that "returns" true or false
-                // depending on if a tables is available or not.
 
-                $.post("/api/friends", newFriend, function (data) {
-
-                                // If a table is available... tell user they are booked.
-                                if (data) {
-                                        alert("Yay! You are have a new friend!");
-                                }
-
-                                // If a table is available... tell user they on the waiting list.
-                                else {
-                                        alert("Sorry you are on the friend wait list");
-                                }
+                console.log(newFriend);
 
 
-                        });
-
-
-
-
-         
 
 
                 $.get("/api/friends", function (req, res) {
-                        console.log(req);
-                        for (i=0; i<req.length; i++){
-                                console.log(req[i].totalScore);
-                                if (req[i].totalScore === newFriend.totalScore){
+
+
+
+                        var totalDifference = 0;
+                        // console.log(req);
+                        for (var i = 0; i < req.length; i++) {
+                                console.log(req[i].name);
+                                totalDifference = 0;
+
+                                for (var j = 0; j < newFriend.scores.length; j++) {
+                                        totalDifference += Math.abs(parseInt(newFriend.scores[j]) - parseInt(req[i].scores[j]));
+                                }
+                                console.log(totalDifference);
+
+                                if (totalDifference <= match.scoreDifference) {
+                                        console.log("works");
+                                        match.name = req[i].name;
+                                        console.log(match.name);
+                                        // match.photo = req.[i].photo;
+                                        match.scoreDifference = totalDifference;
 
                                 }
-                                else if (req[i].totalScore)
                         }
-            
+
+
 
 
                 });
-    });
+
+                $.post("/api/friends", newFriend, function (data) {
+
+                        // If a table is available... tell user they are booked.
+                        if (data) {
+                                alert("Yay! You are have a new friend!");
+
+                                alert(match.name);
+                        }
+
+                        // If a table is available... tell user they on the waiting list.
+                        else {
+                                alert("Sorry you are on the friend wait list");
+                        }
 
 
-    </script>
+                });
+
+
+        });
+
+</script>
