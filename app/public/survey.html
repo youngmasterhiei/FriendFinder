@@ -134,15 +134,36 @@
 
 
 
-                <button type="submit" class="submit btn btn-primary">Submit</button>
+                <button type="submit" class="submit btn btn-primary" data-toggle="modal" data-target="#modal">Submit</button>
         </form>
 
+        <div class="modal" tabindex="-1" role="dialog" id="modal">
+                <div class="modal-dialog" role="document">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title">Friend Survey Message</h5>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                    <div class="modal-body">
+                      <p id="modalMessage"></p>
+                      <img id="modalImg"  style="width:250px;" src="" alt="" >
 
+                </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
 
 
         <!-- <script type="text/javascript" src="friends.js"></script> -->
 
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 
 </body>
 
@@ -212,11 +233,7 @@
                                 ]
                         };
 
-                        var match = {
-                                name: "",
-                                photo: "",
-                                scoreDifference: Infinity
-                        };
+                     
 
                         console.log(newFriend);
 
@@ -236,16 +253,19 @@
 
                         $.post("/api/friends", newFriend, function (data) {
 
-                                // If a table is available... tell user they are booked.
                                 if (data) {
-                                        alert("Yay! You are have a new friend!");
+                                        $("#modalMessage").html("Yay! You have a new best friend! " + " <br><strong>" + data.name + "!</strong>").addClass("text-success");
+                                        // var image = $("<img>");
+                                        // image.attr("src", data.photo);
+                                        $("#modalImg").attr("src", data.photo);
+                                        
+                                        // $("#modal-body").append(image);
 
-                                        alert(data.name);
                                 }
 
-                                // If a table is available... tell user they on the waiting list.
                                 else {
-                                        alert("Sorry you are on the friend wait list");
+                                        $("#modalMessage").html("Sorry you are on the friend wait list").addClass("text-danger");
+
                                 }
 
 
@@ -254,10 +274,11 @@
 
                 }
                 else if (!x) {
-                        alert("all questions must be filled out, thank you. ");
+                        // alert("all questions must be filled out, thank you. ");
+                        $("#modalMessage").text("all questions must be filled out, thank you. ").addClass("text-danger");
                 }
                 else if (!y){
-                        alert("photo must be a valid url");
+                        $("#modalMessage").text("photo must be a valid url").addClass("text-danger");
                 }
 
         });

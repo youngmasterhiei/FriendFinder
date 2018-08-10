@@ -43,7 +43,7 @@ module.exports = function (app) {
       }
       if(totalDifference <= match.scoreDifference){
         match.name = friendsArray[i].name;
-        // match.photo = friendsArray[i].photo;
+        match.photo = friendsArray[i].photo;
         match.scoreDifference = totalDifference;
       }
     }
