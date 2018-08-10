@@ -27,10 +27,11 @@ module.exports = function (app) {
     var match = {
       name: "",
       photo: "",
-      scoreDifference: 0
-    };
+      scoreDifference: Infinity
+};
 
     var newFriend = req.body;
+    
     var totalDifference = 0;
 
     for (var i = 0; i<friendsArray.length; i++) {
